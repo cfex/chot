@@ -1,0 +1,10 @@
+{
+  "name": "chot",
+  "version": "1.0.0",
+  "description": "Git checkout util",
+  "main": "index.js",
+  "repository": "https://github.com/cfex/chot.git",
+  "author": "Jevtić Nenad <jevtic.nnd@gmail.com>",
+  "license": "MIT",
+  "private": false
+}

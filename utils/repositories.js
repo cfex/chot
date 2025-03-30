@@ -1,4 +1,4 @@
-import { checkbox } from "@inquirer/prompts";
+import { checkbox, input } from "@inquirer/prompts";
 import { exec } from "child_process";
 import { existsSync, readdirSync, statSync } from "fs";
 import ora from "ora";

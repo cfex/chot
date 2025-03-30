@@ -14,8 +14,6 @@ async function getGitRepos(rootDir) {
     process.exit(1);
   }
 
-  const repos = [];
-
   const readDirs = await Promise.all(
     readdirSync(rootDir).map(async (dir) => {
       const repoPath = join(rootDir, dir);
@@ -42,29 +40,43 @@ async function selectRepos(repos) {
   return selectedRepos;
 }
 
-async function updateRepos(repos, targetBranch) {
-  const tasks = repos.map(async (repoPath) => {
+async function updateRepos(rootDir) {
+  const repos = await getGitRepos(rootDir);
+  if (repos.length === 0) {
+    console.log("🚫 No Git repositories found.");
+    process.exit(0);
+  }
+
+  const selectedRepos = await selectRepos(repos);
+  if (selectedRepos.length === 0) {
+    console.log("🚫 No repositories selected.");
+    process.exit(0);
+  }
+
+  const targetBranch = await input({
+    message: "Enter target branch",
+    default: "development",
+    required: false,
+  });
+
+  const tasks = selectedRepos.map(async (repoPath) => {
     const repoName = repoPath.split("/").pop();
     const spinner = ora(`🔄 Checking out ${repoName}`).start();
 
     try {
       await execPromise("git fetch", { cwd: repoPath });
 
-      const branches = [targetBranch, "main", "master"];
       let checkedOut = false;
 
-      for (const branch of branches) {
-        try {
-          const { stdout } = await execPromise(
-            `git checkout ${branch} && git pull`,
-            { cwd: repoPath }
-          );
-          spinner.succeed(`✅ ${repoName} updated to ${branch}\n${stdout}`);
-          checkedOut = true;
-          break;
-        } catch {
-          spinner.warn(`⚠️ ${repoName}: Branch ${branch} not found.`);
-        }
+      try {
+        const { stdout } = await execPromise(
+          `git checkout ${targetBranch} && git pull`,
+          { cwd: repoPath }
+        );
+        spinner.succeed(`✅ ${repoName} updated to ${branch}\n${stdout}`);
+        checkedOut = true;
+      } catch {
+        spinner.warn(`⚠️ ${repoName}: Branch ${branch} not found.`);
       }
 
       if (!checkedOut) {
@@ -78,4 +90,4 @@ async function updateRepos(repos, targetBranch) {
   await Promise.all(tasks);
 }
 
-export { getGitRepos, selectRepos, updateRepos };
+export { updateRepos };

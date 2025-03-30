@@ -12,4 +12,4 @@ If the repo doesn't have target branch, it will try to checkout main or master i
 
 Run `npm install -g chot@latest`  
 or  
-Run `npx chot@latest <path>` (you can use . if you are already in the roor folder)
+Run `npx chot@latest <path>` (you can use . as path, if you are already in the root folder)

@@ -1,6 +1,6 @@
 {
   "name": "chot",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Git checkout util",
   "main": "index.js",
   "repository": "https://github.com/cfex/chot.git",

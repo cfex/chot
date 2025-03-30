@@ -56,7 +56,7 @@ async function updateRepos(repos, targetBranch) {
       for (const branch of branches) {
         try {
           const { stdout } = await execPromise(
-            `git checkout ${branch} && git pull origin ${branch}`,
+            `git checkout ${branch} && git pull`,
             { cwd: repoPath }
           );
           spinner.succeed(`✅ ${repoName} updated to ${branch}\n${stdout}`);

@@ -4,7 +4,7 @@ import { existsSync, readdirSync, statSync } from "fs";
 import ora from "ora";
 import { join } from "path";
 import { promisify } from "util";
-import { getCurrentBranch } from "./current-branch";
+import { getCurrentBranch } from "./current-branch.js";
 
 const execPromise = promisify(exec);
 

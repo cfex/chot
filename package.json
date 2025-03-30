@@ -11,6 +11,12 @@
   "bin": {
     "checkout-tool": "./index.js"
   },
+  "keywords": [
+    "git",
+    "checkout",
+    "tool",
+    "cli"
+  ],
   "dependencies": {
     "@inquirer/prompts": "^7.4.0",
     "ora": "^8.2.0"

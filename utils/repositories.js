@@ -73,10 +73,10 @@ async function updateRepos(rootDir) {
           `git checkout ${targetBranch} && git pull`,
           { cwd: repoPath }
         );
-        spinner.succeed(`✅ ${repoName} updated to ${branch}\n${stdout}`);
+        spinner.succeed(`✅ ${repoName} updated to ${targetBranch}\n${stdout}`);
         checkedOut = true;
       } catch {
-        spinner.warn(`⚠️ ${repoName}: Branch ${branch} not found.`);
+        spinner.warn(`⚠️ ${repoName}: Branch ${targetBranch} not found.`);
       }
 
       if (!checkedOut) {

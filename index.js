@@ -21,7 +21,7 @@ async function main() {
   }
 
   const targetBranch = await input({
-    message: "Enter target branch (default: development)",
+    message: "Enter target branch",
     default: "development",
     required: false,
   });
